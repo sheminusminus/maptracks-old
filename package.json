@@ -4,7 +4,7 @@
   "description": "listen to past travelers playlists.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --config webpack.config.prod & \n babel-node api/index.js --presets es2015",
+    "start": "webpack --config webpack.config.prod & \n nodemon api/index.js --config nodemon.json --exec 'babel-node --presets es2015'",
     "dev": "webpack -w & \n nodemon api/index.js --config nodemon.json --exec 'babel-node --presets es2015'"
   },
   "repository": {
