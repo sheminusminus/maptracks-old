@@ -13,11 +13,19 @@ const DIST_FOLDER = path.join(__dirname, 'build');
 module.exports = {
   entry: {
     app: path.join(SRC_FOLDER, 'index.js'),
+    vendor: [
+      'react',
+      'react-dom',
+      'react-router',
+      'react-router-dom',
+      'redux',
+      'react-redux',
+    ],
   },
   output: {
     publicPath: '/',
     path: DIST_FOLDER,
-    filename: '[name].[hash].js',
+    filename: '[name].[chunkhash].js',
   },
   module: {
     rules: [
@@ -55,12 +63,21 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(), // enable HMR globally
-    new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+      sourceMap: true,
+    }),
     new HtmlWebpackPlugin({  // also generate an index.html
       filename: 'index.html',
       template: 'frontend/static/index.html',
-      env: 'development',
+      env: 'production',
     }),
     new CopyWebpackPlugin([
       {
@@ -68,7 +85,13 @@ module.exports = {
         from: '*',
         to: path.resolve(DIST_FOLDER, 'images'),
       },
-    ])
+    ]),
+    new webpack.HashedModuleIdsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'runtime',
+    }),
   ],
-  devtool: 'source-map',
 };

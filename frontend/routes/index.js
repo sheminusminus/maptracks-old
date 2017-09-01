@@ -7,7 +7,7 @@ const AppRoutes = () => (
   <Router>
     <div>
       <Route path="/track" component={Track} />
-      <Route path="/" render={ () => (<div>Main</div>) } />
+      <Route path="/" component={Track} />
     </div>
   </Router>
 );

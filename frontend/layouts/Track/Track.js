@@ -1,9 +1,13 @@
 import React from 'react';
 
+import { Map } from '../../components';
+
 class Track extends React.Component {
   render() {
     return (
-      <div>Tracker</div>
+      <div>
+        <Map />
+      </div>
     );
   }
 }
