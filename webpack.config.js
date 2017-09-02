@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const SRC_FOLDER = path.join(__dirname, 'client');
-const DIST_FOLDER = path.join(__dirname, 'build');
+const DIST_FOLDER = path.join(__dirname, 'build/client');
 
 module.exports = {
   entry: {

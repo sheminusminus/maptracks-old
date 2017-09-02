@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 
 const PORT = 3005;
 
+const serveDir = (process.env.NODE_ENV === 'production') ? '../client' : '../build/client';
+
 // ===========
 // express
 // ===========
@@ -25,14 +27,14 @@ app.use(bodyParser.urlencoded({
 }));
 
 // serve static files (html, js, css, images, etc)
-app.use(express.static(path.join(__dirname, '../build'), {
+app.use(express.static(path.join(__dirname, serveDir), {
   index: 'index.html',
   redirect: false,
 }));
 
 // serve the index.html over all unmatched Routes.js
 app.get('*', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '../build/index.html'));
+  res.status(200).sendFile(path.join(__dirname, `${serveDir}/index.html`));
 });
 
 app.listen(PORT, () => {
