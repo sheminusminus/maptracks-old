@@ -7,7 +7,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const SRC_FOLDER = path.join(__dirname, 'frontend');
+const SRC_FOLDER = path.join(__dirname, 'client');
 const DIST_FOLDER = path.join(__dirname, 'build');
 
 module.exports = {
@@ -59,7 +59,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({  // also generate an index.html
       filename: 'index.html',
-      template: 'frontend/static/index.html',
+      template: 'client/static/index.html',
       env: 'development',
     }),
     new CopyWebpackPlugin([
