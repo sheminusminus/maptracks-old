@@ -2,6 +2,8 @@ import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 
+import mapRouter from './maps';
+
 const PORT = 3005;
 
 const serveDir = (process.env.NODE_ENV === 'production') ? '../client' : '../build/client';
@@ -25,6 +27,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
+
+app.use('/api/maps', mapRouter);
 
 // serve static files (html, js, css, images, etc)
 app.use(express.static(path.join(__dirname, serveDir), {

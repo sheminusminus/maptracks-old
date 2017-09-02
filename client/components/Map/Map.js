@@ -13,6 +13,8 @@ class Map extends React.Component {
     this.map = null;
     this.markers = [];
     this.positions = [];
+    this.points = [];
+    this.polylines = [];
     this.positionInterval = null;
     this.navigator = window.navigator;
     this.bindCallbacks();
@@ -20,14 +22,46 @@ class Map extends React.Component {
 
   bindCallbacks() {
     this.setMapRef = this.setMapRef.bind(this);
+    this.requestSnapToRoads = this.requestSnapToRoads.bind(this);
   }
 
   componentDidMount() {
     this.initNavigator();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const points = Map.processSnappedPoints(nextProps.snappedPoints);
+    this.drawPolylines(points);
+  }
+
   componentWillUnmount() {
     clearInterval(this.positionInterval);
+  }
+
+  drawPolylines(snappedCoordinates) {
+    const snappedPolyline = new window.google.maps.Polyline({
+      path: snappedCoordinates,
+      strokeColor: 'black',
+      strokeWeight: 3,
+    });
+
+    snappedPolyline.setMap(this.map);
+    this.polylines.push(snappedPolyline);
+  }
+
+  static processSnappedPoints(points) {
+    const processed = [];
+
+    for (let i = 0; i < points.length; i++) {
+      const loc = new window.google.maps.LatLng(
+        points[i].location.latitude,
+        points[i].location.longitude,
+      );
+
+      processed.push(loc);
+    }
+
+    return processed;
   }
 
   position() {
@@ -67,22 +101,20 @@ class Map extends React.Component {
   }
 
   addPosition(position) {
-    const latest = {
+    const latestPosition = {
       lat: position.coords.latitude,
       lng: position.coords.longitude,
     };
 
+    const latestPoint = `${latestPosition.lat},${latestPosition.lng}`;
+
     this.setState({
-      lat: latest.lat,
-      lng: latest.lng,
+      lat: latestPosition.lat,
+      lng: latestPosition.lng,
     });
 
-    this.positions.push(latest);
-
-    if (this.positions.length % 4 === 0) {
-      const index = this.positions.length - 1;
-      this.addMarker(this.positions[index], `${index + 1}`);
-    }
+    this.positions.push(latestPosition);
+    this.points.push(latestPoint);
   }
 
   addMarker(position, label) {
@@ -95,13 +127,22 @@ class Map extends React.Component {
     this.markers.push(marker);
   }
 
+  requestSnapToRoads() {
+    this.props.snapToRoads(this.points);
+  }
+
   render() {
     return (
-      <div
-        id="main-map"
-        className={styles.map}
-        ref={ (el) => { this.setMapRef(el); } }>
-        Loading Map...
+      <div>
+        <div
+          id="main-map"
+          className={styles.map}
+          ref={ (el) => { this.setMapRef(el); } }>
+          <span>{String.fromCharCode(8635)}</span> Loading Map...
+        </div>
+        <button
+          onClick={this.requestSnapToRoads}
+          className={styles.button}>Snap To Roads</button>
       </div>
     );
   }
