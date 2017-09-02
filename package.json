@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf build/",
-    "build": "npm run clean && babel api --out-dir build/api && webpack --config webpack.config.prod",
+    "build-api": "babel api --out-dir build/api",
+    "build-client": "webpack --config webpack.config.prod",
     "start": "node build/api/index.js",
     "dev": "webpack -w --progress & \n nodemon api/index.js --config nodemon.json --exec 'babel-node --presets es2015'"
   },
