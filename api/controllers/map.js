@@ -8,7 +8,7 @@ class MapController {
       url: 'https://roads.googleapis.com/v1/snapToRoads',
       params: {
         path: pathValues.join('|'),
-        key: 'AIzaSyBz-JfaschRFGIIACdWGyVkQRsk72a0xeY',
+        key: '',
       },
     });
   }

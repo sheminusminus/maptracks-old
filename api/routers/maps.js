@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { MapController } from './controllers';
+import { MapController } from '../controllers';
 
 const router = Router();
 
