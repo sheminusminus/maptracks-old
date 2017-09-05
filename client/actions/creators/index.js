@@ -1,6 +1,7 @@
 import {
   login,
   register,
+  logout,
 } from './auth';
 
 import {
@@ -15,6 +16,7 @@ export {
   // auth
   login,
   register,
+  logout,
   // firebase
   getFirebaseConfig,
   // maps

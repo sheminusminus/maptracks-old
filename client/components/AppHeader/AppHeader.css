@@ -1,0 +1,33 @@
+.appHeader {
+  width: 100vw;
+  max-width: 100vw;
+  height: 50px;
+  background-color: rgba(0,0,0,0.95);
+  display: flex;
+  justify-content: flex-start;
+  color: white;
+}
+
+.menuIcon {
+  width: 30px;
+  height: 30px;
+  margin: 10px 20px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 30px;
+}
+
+.titleWrapper {
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  color: white;
+  font-size: 20px;
+  font-weight: 400;
+}

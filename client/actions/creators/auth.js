@@ -55,3 +55,22 @@ export function register(email, password) {
     }
   };
 }
+
+export function logout(email, password) {
+  return async (dispatch) => {
+    const auth = window.firebase.auth();
+
+    try {
+      auth.signOut();
+
+      dispatch({
+        type: LOGOUT_REQUEST,
+      });
+    } catch (err) {
+      console.log(err, err.code, err.message);
+      dispatch({
+        type: LOGOUT_FAILURE,
+      });
+    }
+  };
+}

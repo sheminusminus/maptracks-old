@@ -136,7 +136,7 @@ class Map extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={styles.mapWrapper}>
         <div
           id="main-map"
           className={styles.map}
