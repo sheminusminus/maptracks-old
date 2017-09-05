@@ -13,7 +13,7 @@ router.get(
 router.get(
   '/callback',
   SpotifyController.attachSpotifyData,
-  SpotifyController.handleCallback,
+  SpotifyController.handleAuthCallback,
 );
 
 router.get(

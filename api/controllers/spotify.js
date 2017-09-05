@@ -35,7 +35,7 @@ class SpotifyController {
     res.redirect(`https://accounts.spotify.com/authorize?${query}`);
   }
 
-  static async handleCallback(req, res, next) {
+  static async handleAuthCallback(req, res, next) {
     const code = req.query.code || null;
 
     const authOptions = {
