@@ -4,19 +4,12 @@ before_script:
   - npm install
 
 stages:
-  - clean
   - build
-
-clean:
-  stage: clean
-  script:
-    - npm run clean
-  only:
-    - master
 
 build:
   stage: build
   script:
+    - npm run clean
     - npm run build-api
     - npm run build-client
   only:
