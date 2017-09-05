@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { SpotifyService } from '../services';
+
 import { queryStr } from '../utils';
 
 class SpotifyController {
@@ -36,64 +38,26 @@ class SpotifyController {
   }
 
   static async handleAuthCallback(req, res, next) {
-    const code = req.query.code || null;
-
-    const authOptions = {
-      method: 'POST',
-      url: 'https://accounts.spotify.com/api/token',
-      params: {
-        code,
-        redirect_uri: req.spotify.redirectUri,
-        grant_type: 'authorization_code',
-      },
-      headers: req.spotify.basicAuth,
-      json: true,
-    };
-
     try {
-      const response = await axios(authOptions);
+      const response = await SpotifyService.handleAuthCallback(req);
 
-      const {
-        access_token,
-        refresh_token,
-      } = response.data;
-
-      res.json({
-        access_token,
-        refresh_token,
-      });
+      res.json(response);
     } catch (err) {
       console.log(err.response);
 
-      res.json({ message: 'Error' });
+      res.json({ message: 'Error in SpotifyController.handleAuthCallback' });
     }
   }
 
   static async refresh(req, res, next) {
-    const {
-      refresh_token,
-    } = req.query;
-
-    const postOptions = {
-      method: 'POST',
-      url: 'https://accounts.spotify.com/api/token',
-      headers: req.spotifyData.basicAuth,
-      form: {
-        grant_type: 'refresh_token',
-        refresh_token,
-      },
-      json: true,
-    };
-
     try {
-      const response = axios(postOptions);
+      const response = SpotifyService.refresh(req);
 
-      const { access_token } = response.data;
-      res.json({ access_token });
+      res.json(response);
     } catch (err) {
       console.log(err.response);
 
-      res.json({ message: 'Error' });
+      res.json({ message: 'Error in SpotifyController.refresh' });
     }
   }
 }
