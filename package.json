@@ -7,7 +7,7 @@
     "test": "npm run test:api",
     "test:api": "mocha --recursive --compilers js:babel-core/register --require babel-polyfill test/unit/**/*.js",
     "clean": "rimraf build/",
-    "deploy": "rimraf build/api && npm run build-api",
+    "deploy": "rimraf build/api && npm run build-api && passenger stop && passenger start",
     "build": "npm run clean && npm run build-api && npm run build-client",
     "build-api": "babel api --out-dir build/api",
     "build-client": "webpack --config webpack.config.prod",
