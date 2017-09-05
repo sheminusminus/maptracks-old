@@ -70,3 +70,6 @@ gen
 
 # project build
 build
+
+# environment variables
+.env
