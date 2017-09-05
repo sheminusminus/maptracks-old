@@ -1,18 +1,26 @@
 import { combineReducers } from 'redux';
 
-import { SNAPPED_POINTS_SUCCESS } from '../actions/types';
+import auth from './auth';
+import firebase from './firebase';
+import maps from './maps';
 
-import initialState from './initial-state';
+import {
+  LOGOUT_REQUEST,
+} from '../actions/types';
 
-const rootReducer = (state = initialState, action) => {
+const appReducer = combineReducers({
+  auth,
+  firebase,
+  maps,
+});
+
+const root = (state, action) => {
   switch (action.type) {
-    case SNAPPED_POINTS_SUCCESS:
-      return Object.assign({}, state, {
-        snappedPoints: action.payload,
-      });
+    case LOGOUT_REQUEST:
+      return appReducer(undefined, action);
     default:
-      return state;
+      return appReducer(state, action);
   }
 };
 
-export default rootReducer;
+export default root;

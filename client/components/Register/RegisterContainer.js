@@ -1,20 +1,18 @@
 import { connect } from 'react-redux';
 
-import Map from './Map';
+import Register from './Register';
 
 import {
-  snapToRoads,
+  register,
 } from '../../actions/creators';
 
-const mapStateToProps = state => ({
-  snappedPoints: state.maps.snappedPoints,
-});
+const mapStateToProps = (state, ownProps) => ({});
 
 const mapDispatchToProps = {
-  snapToRoads,
+  register,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Map);
+)(Register);

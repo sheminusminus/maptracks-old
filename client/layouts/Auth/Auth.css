@@ -1,0 +1,21 @@
+.auth {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 20px;
+}
+
+.tabs {
+  width: 100%;
+  max-width: 100%;
+}
+
+.tab {
+  width: 50%;
+  max-width: 50%;
+  background-color: lightgrey;
+}
+
+.activeTab {
+  composes: tab;
+  background-color: white;
+}
