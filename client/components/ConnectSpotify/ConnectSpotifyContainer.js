@@ -1,22 +1,16 @@
 import { connect } from 'react-redux';
 
-import Menu from './Menu';
+import ConnectSpotify from './ConnectSpotify';
 
 import {
-  logout,
-  spotifyAuth,
+  snapToRoads,
 } from '../../actions/creators';
 
 const mapStateToProps = state => ({
+  authUrl: state.spotify.authUrl,
   uid: state.user.uid,
 });
 
-const mapDispatchToProps = {
-  logout,
-  spotifyAuth,
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(Menu);
+)(ConnectSpotify);

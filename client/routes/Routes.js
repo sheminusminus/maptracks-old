@@ -31,7 +31,8 @@ class Routes extends React.Component {
             <NoAuthRoute path="/login" Component={Auth} />
             <NoAuthRoute path="/signup" Component={Auth} />
             <AuthRoute path="/track" Component={Track} />
-            <AuthRoute exact path="/" Component={UserMain} />
+            <AuthRoute path="/me" Component={UserMain} />
+            <AuthRoute path="/spotify" Component={UserMain} />
             <Route path="*" component={NotFound} />
           </Switch>
         </App>

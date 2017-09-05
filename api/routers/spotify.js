@@ -5,7 +5,7 @@ import { SpotifyController } from '../controllers';
 const router = Router();
 
 router.get(
-  '/auth',
+  '/auth/:uid',
   SpotifyController.attachSpotifyData,
   SpotifyController.login,
 );
@@ -20,6 +20,12 @@ router.get(
   '/refresh',
   SpotifyController.attachSpotifyData,
   SpotifyController.refresh,
+);
+
+router.get(
+  '/',
+  SpotifyController.attachSpotifyData,
+  SpotifyController.getCallbackData,
 );
 
 export default router;

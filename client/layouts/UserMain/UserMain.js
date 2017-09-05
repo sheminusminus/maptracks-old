@@ -1,17 +1,15 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
+
+import {
+  ConnectSpotify,
+} from '../../components';
 
 class UserMain extends React.Component {
   render() {
-    const {
-      children,
-    } = this.props;
-
     return (
       <div>
-        UserMain
-        <div>
-          {children}
-        </div>
+        <Route path="/me/spotify" component={ConnectSpotify} />
       </div>
     );
   }

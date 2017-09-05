@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import auth from './auth';
 import firebase from './firebase';
 import maps from './maps';
+import spotify from './spotify';
 import user from './user';
 
 import {
@@ -13,6 +14,7 @@ const appReducer = combineReducers({
   auth,
   firebase,
   maps,
+  spotify,
   user,
 });
 

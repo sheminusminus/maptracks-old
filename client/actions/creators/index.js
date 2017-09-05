@@ -12,6 +12,10 @@ import {
   snapToRoads,
 } from './map';
 
+import {
+  getSpotifyUrl,
+} from './spotify';
+
 export {
   // auth
   login,
@@ -21,4 +25,6 @@ export {
   getFirebaseConfig,
   // maps
   snapToRoads,
+  // spotify
+  getSpotifyUrl,
 };

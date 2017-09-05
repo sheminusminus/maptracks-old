@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { SpotifyService } from '../services';
+import { SpotifyService, FirebaseService } from '../services';
 
 import { queryStr } from '../utils';
 
@@ -27,26 +27,55 @@ class SpotifyController {
   }
 
   static login(req, res, next) {
+    const uid = req.params.uid || '';
+    const stateKey = 'state_uid';
+
     const query = queryStr({
       response_type: 'code',
       client_id: req.spotify.clientId,
       redirect_uri: req.spotify.redirectUri,
       scope: req.spotify.scope,
+      state: uid,
     });
+
+    res.cookie(stateKey, uid);
 
     res.redirect(`https://accounts.spotify.com/authorize?${query}`);
   }
 
   static async handleAuthCallback(req, res, next) {
+    const stateKey = 'state_uid';
+    const state = req.query.state || null;
+    const storedState = req.cookies ? req.cookies[stateKey] : null;
+
+    if (storedState !== state || storedState === null) {
+      res.redirect('/');
+    }
+
     try {
       const response = await SpotifyService.handleAuthCallback(req);
 
-      res.json(response);
+      const {
+        access_token,
+        refresh_token,
+      } = response;
+
+      const dbResponse = await FirebaseService.saveSpotifyTokens(
+        storedState,
+        access_token,
+        refresh_token,
+      );
+
+      res.redirect('/spotify?success=true');
     } catch (err) {
       console.log(err.response);
 
-      res.json({ message: 'Error in SpotifyController.handleAuthCallback' });
+      res.redirect('/spotify?success=false');
     }
+  }
+
+  static async getCallbackData(req, res, next) {
+    next();
   }
 
   static async refresh(req, res, next) {

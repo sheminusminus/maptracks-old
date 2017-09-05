@@ -12,6 +12,12 @@ export default {
     fetching: false,
     initialized: false,
   },
+  spotify: {
+    fetching: false,
+    authUrl: null,
+    accessToken: null,
+    refreshToken: null,
+  },
   user: {
     fetching: false,
     name: null,

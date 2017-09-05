@@ -1,3 +1,4 @@
+import * as admin from 'firebase-admin';
 
 class FirebaseService {
   static getConfig(req, res, next) {
@@ -16,6 +17,16 @@ class FirebaseService {
       storageBucket,
       messagingSenderId,
     };
+  }
+
+  static async saveSpotifyTokens(uid, access, refresh) {
+    const db = admin.database();
+    const spotifyRef = db.ref(`/users/${uid}/spotify`);
+    spotifyRef.set({
+      accessToken: access,
+      refreshToken: refresh,
+    });
+    return {};
   }
 }
 

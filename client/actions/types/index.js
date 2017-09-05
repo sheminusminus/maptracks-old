@@ -25,6 +25,12 @@ import {
   SNAPPED_POINTS_FAILURE,
 } from './maps';
 
+import {
+  SPOTIFY_URL_REQUEST,
+  SPOTIFY_URL_SUCCESS,
+  SPOTIFY_URL_FAILURE,
+} from './spotify';
+
 export {
   // auth
   LOGIN_REQUEST,
@@ -47,4 +53,8 @@ export {
   SNAPPED_POINTS_REQUEST,
   SNAPPED_POINTS_SUCCESS,
   SNAPPED_POINTS_FAILURE,
+  // spotify
+  SPOTIFY_URL_REQUEST,
+  SPOTIFY_URL_SUCCESS,
+  SPOTIFY_URL_FAILURE,
 };

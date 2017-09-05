@@ -14,9 +14,12 @@ import {
   configureExpress,
   configureLoggly,
   configureDotenv,
+  configureFirebase,
 } from './configs';
 
 configureDotenv(); // need env vars first
+
+const serviceAccount = require('../ghostfyi-d25cf-firebase-adminsdk-nr3zw-2f4672eb2a.json');
 
 // ===========
 // routers
@@ -35,6 +38,11 @@ const PORT = process.env.SERVE_PORT;
 const SERVE_DIR = (process.env.NODE_ENV === 'production') ?
   path.resolve(__dirname, '../client') :
   path.resolve(__dirname, '../build/client');
+
+// ===========
+// firebase admin config
+// ===========
+const admin = configureFirebase(serviceAccount);
 
 // ===========
 // loggly config

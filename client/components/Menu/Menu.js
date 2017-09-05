@@ -20,7 +20,12 @@ class Menu extends React.Component {
   }
 
   render() {
-    const { logout } = this.props;
+    const {
+      logout,
+      spotifyAuth,
+      uid,
+    } = this.props;
+
     const open = this.state.open;
     const classes = open ? styles.menuWrapperOpen : styles.menuWrapper;
 
@@ -29,6 +34,12 @@ class Menu extends React.Component {
         className={classes}>
         <ul
           className={styles.menu}>
+          <li
+            className={styles.menuItem}>
+            <a href={`/spotify/auth/${uid}`}>
+              Connect Spotify
+            </a>
+          </li>
           <li
             onClick={logout}
             className={styles.menuItem}>

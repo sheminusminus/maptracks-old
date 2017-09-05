@@ -1,6 +1,7 @@
 import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 
 import {
   firebaseRouter,
@@ -20,6 +21,8 @@ const configureExpress = (serveDir) => {
     }
   });
 
+  app.use(cookieParser());
+
   // such easy params
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({
@@ -29,6 +32,7 @@ const configureExpress = (serveDir) => {
   app.use('/api/maps', mapRouter);
 
   app.use('/api/spotify', spotifyRouter);
+  app.use('/spotify', spotifyRouter);
 
   app.use('/api/firebase', firebaseRouter);
 
