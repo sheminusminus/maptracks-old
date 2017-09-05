@@ -74,3 +74,6 @@ build/api
 # environment variables
 .env
 package-lock.json
+
+# firebase service key
+ghostfyi-d25cf-firebase-adminsdk-nr3zw-2f4672eb2a.json
