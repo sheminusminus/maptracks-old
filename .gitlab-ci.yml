@@ -4,7 +4,13 @@ before_script:
   - npm install
 
 stages:
+  - test
   - build
+
+test:
+  stage: test
+  script:
+    - npm test
 
 build:
   stage: build
