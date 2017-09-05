@@ -1,4 +1,4 @@
-import queryString from 'queryString';
+import queryString from 'querystring';
 
 const queryStr = obj => (
   queryString.stringify(obj)
