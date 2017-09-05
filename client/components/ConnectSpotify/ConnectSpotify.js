@@ -1,41 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 class ConnectSpotify extends React.Component {
-  constructor(props) {
-    super(props);
-    this.bindCallbacks();
-  }
-
-  bindCallbacks() {
-    this.handleIframeLoad = this.handleIframeLoad.bind(this);
-  }
-
-  /* eslint-disable */
-  handleIframeLoad(evt) {
-    console.log(evt.target);
-  }
-  /* eslint-enable */
-
   render() {
-    const { authUrl } = this.props;
-    const permissions = [
-      'allow-forms',
-      'allow-scripts',
-      'allow-top-navigation',
-      'allow-same-origin',
-      'allow-popups',
-    ];
+    const { search } = this.props.location;
+    const parsed = queryString.parse(search);
+    const success = parsed.success || false;
+
+    let message = '';
+    if (success === 'true' || success === true) {
+      message = 'Your Spotify account has been connected!';
+    } else {
+      message = 'Your spotify account has not yet been connected.';
+    }
+
     return (
-      <iframe
-        frameBorder={0}
-        width="300"
-        height="300"
-        name="iframeEl"
-        id="iframeEl"
-        onLoad={this.handleIframeLoad}
-        sandbox={permissions.join(' ')}
-        src={authUrl} />
+      <div>
+        {message}
+      </div>
     );
   }
 }

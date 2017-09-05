@@ -3,13 +3,15 @@ import { Route } from 'react-router-dom';
 
 import {
   ConnectSpotify,
+  UserOptions,
 } from '../../components';
 
 class UserMain extends React.Component {
   render() {
     return (
       <div>
-        <Route path="/me/spotify" component={ConnectSpotify} />
+        <Route path="/spotify" component={ConnectSpotify} />
+        <Route exact path="/" component={UserOptions} />
       </div>
     );
   }
