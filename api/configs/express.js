@@ -2,7 +2,11 @@ import path from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 
-import { mapRouter, spotifyRouter } from '../routers';
+import {
+  firebaseRouter,
+  mapRouter,
+  spotifyRouter,
+} from '../routers';
 
 const configureExpress = (serveDir) => {
   const app = express();
@@ -25,6 +29,8 @@ const configureExpress = (serveDir) => {
   app.use('/api/maps', mapRouter);
 
   app.use('/api/spotify', spotifyRouter);
+
+  app.use('/api/firebase', firebaseRouter);
 
   // serve static files (html, js, css, images, etc)
   app.use(express.static(serveDir, {

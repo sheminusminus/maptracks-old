@@ -22,7 +22,7 @@ class AuthRoute extends React.Component {
     } = this.props;
 
     if (fetching) {
-      return (<div>Still Loading</div>);
+      return (<div />);
     }
 
     return (

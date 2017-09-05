@@ -2,7 +2,7 @@ export default {
   auth: {
     authenticated: false,
     fetching: false,
-    userId: null,
+    uid: null,
   },
   maps: {
     fetching: false,
@@ -10,11 +10,15 @@ export default {
   },
   firebase: {
     fetching: false,
-    apiKey: null,
-    authDomain: null,
-    databaseURL: null,
-    projectId: null,
-    storageBucket: null,
-    messagingSenderId: null,
+    initialized: false,
+  },
+  user: {
+    fetching: false,
+    name: null,
+    email: null,
+    verified: null,
+    uid: null,
+    photoUrl: null,
+    anonymous: null,
   },
 };

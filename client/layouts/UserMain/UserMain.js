@@ -1,6 +1,6 @@
 import React from 'react';
 
-class App extends React.Component {
+class UserMain extends React.Component {
   render() {
     const {
       children,
@@ -8,7 +8,7 @@ class App extends React.Component {
 
     return (
       <div>
-        App Header
+        UserMain
         <div>
           {children}
         </div>
@@ -17,4 +17,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default UserMain;

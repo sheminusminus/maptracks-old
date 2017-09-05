@@ -16,13 +16,16 @@ export function login(email, password) {
       type: LOGIN_REQUEST,
     });
 
-    console.log('login', email, password);
+    const auth = window.firebase.auth();
 
     try {
+      auth.signInWithEmailAndPassword(email, password);
+
       dispatch({
         type: LOGIN_SUCCESS,
       });
     } catch (err) {
+      console.log(err, err.code, err.message);
       dispatch({
         type: LOGIN_FAILURE,
       });
@@ -36,13 +39,16 @@ export function register(email, password) {
       type: REGISTER_REQUEST,
     });
 
-    console.log('register', email, password);
+    const auth = window.firebase.auth();
 
     try {
+      auth.createUserWithEmailAndPassword(email, password);
+
       dispatch({
         type: REGISTER_SUCCESS,
       });
     } catch (err) {
+      console.log(err, err.code, err.message);
       dispatch({
         type: REGISTER_FAILURE,
       });

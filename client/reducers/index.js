@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import auth from './auth';
 import firebase from './firebase';
 import maps from './maps';
+import user from './user';
 
 import {
   LOGOUT_REQUEST,
@@ -12,6 +13,7 @@ const appReducer = combineReducers({
   auth,
   firebase,
   maps,
+  user,
 });
 
 const root = (state, action) => {

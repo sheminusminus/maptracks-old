@@ -22,7 +22,7 @@ class NoAuthRoute extends React.Component {
     } = this.props;
 
     if (fetching) {
-      return (<div>Still Loading</div>);
+      return (<div />);
     }
 
     return (
@@ -31,7 +31,7 @@ class NoAuthRoute extends React.Component {
           React.createElement(Component, props)
           :
           <Redirect
-            to={{ pathname: '/app', state: { from: props.location } }} />
+            to={{ pathname: '/', state: { from: props.location } }} />
       )} />
     );
   }

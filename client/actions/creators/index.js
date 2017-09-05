@@ -4,17 +4,19 @@ import {
 } from './auth';
 
 import {
-  getFirebaseData,
+  getFirebaseConfig,
 } from './firebase';
 
-import { snapToRoads } from './map';
+import {
+  snapToRoads,
+} from './map';
 
 export {
   // auth
   login,
   register,
   // firebase
-  getFirebaseData,
+  getFirebaseConfig,
   // maps
   snapToRoads,
 };
