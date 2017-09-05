@@ -46,6 +46,9 @@ class Map extends React.Component {
     });
 
     snappedPolyline.setMap(this.map);
+    snappedPolyline.addListener('click', (evt) => {
+      console.log(evt);
+    });
     this.polylines.push(snappedPolyline);
   }
 
@@ -96,7 +99,7 @@ class Map extends React.Component {
     const me = this;
     this.map = new window.google.maps.Map(me.mapRef, {
       center: me.position(),
-      zoom: 12,
+      zoom: 14,
     });
   }
 
