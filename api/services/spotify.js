@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { queryStr } from '../utils';
 
-class SpotifyController {
+class SpotifyService {
   static async handleAuthCallback(req) {
     const code = req.query.code || '';
 
@@ -34,6 +34,28 @@ class SpotifyController {
       console.log(err.response);
 
       return { message: 'Error in SpotifyService.handleAuthCallback' };
+    }
+  }
+
+  static async getUserRecentlyPlayed(accessToken) {
+    const options = {
+      method: 'GET',
+      url: 'https://api.spotify.com/v1/me/player/recently-played',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      json: true,
+    };
+
+    try {
+      const response = await axios(options);
+
+      console.log(response.data.items);
+
+      return response.data.items;
+    } catch (err) {
+      console.log(err, err.response);
+      return {};
     }
   }
 
@@ -71,4 +93,4 @@ class SpotifyController {
   }
 }
 
-export default SpotifyController;
+export default SpotifyService;

@@ -1,6 +1,12 @@
 import React from 'react';
 
 import styles from './Map.css';
+import mapStylers from './MapStylers';
+
+import InfoWindow from './InfoWindow';
+
+const google = window.google;
+const navigator = window.navigator;
 
 class Map extends React.Component {
   constructor(props) {
@@ -16,12 +22,12 @@ class Map extends React.Component {
     this.points = [];
     this.polylines = [];
     this.positionInterval = null;
-    this.navigator = window.navigator;
     this.bindCallbacks();
   }
 
   bindCallbacks() {
     this.setMapRef = this.setMapRef.bind(this);
+    this.handlePolyClick = this.handlePolyClick.bind(this);
     this.requestSnapToRoads = this.requestSnapToRoads.bind(this);
   }
 
@@ -38,17 +44,35 @@ class Map extends React.Component {
     clearInterval(this.positionInterval);
   }
 
+  /* eslint-disable */
+  handlePolyClick(evt) {
+    const win = new InfoWindow('Start');
+    const windowPoint = {
+      lat: evt.latLng.lat(),
+      lng: evt.latLng.lng(),
+    };
+    const marker = new google.maps.Marker({
+      position: windowPoint,
+      map: this.map,
+    });
+    const infoWindow = new google.maps.InfoWindow({
+      content: win.content,
+    });
+    infoWindow.open(this.map, marker);
+  }
+  /* eslibt-enable */
+
   drawPolylines(snappedCoordinates) {
-    const snappedPolyline = new window.google.maps.Polyline({
+    const snappedPolyline = new google.maps.Polyline({
       path: snappedCoordinates,
-      strokeColor: 'black',
-      strokeWeight: 3,
+      // 184, 185, 40
+      strokeColor: 'rgba(182,53,157,0.9)',
+      strokeWeight: 12,
     });
 
     snappedPolyline.setMap(this.map);
-    snappedPolyline.addListener('click', (evt) => {
-      console.log(evt);
-    });
+    snappedPolyline.addListener('click', this.handlePolyClick);
+
     this.polylines.push(snappedPolyline);
   }
 
@@ -56,7 +80,7 @@ class Map extends React.Component {
     const processed = [];
 
     for (let i = 0; i < points.length; i++) {
-      const loc = new window.google.maps.LatLng(
+      const loc = new google.maps.LatLng(
         points[i].location.latitude,
         points[i].location.longitude,
       );
@@ -81,7 +105,7 @@ class Map extends React.Component {
   initNavigator() {
     const me = this;
     this.positionInterval = setInterval(() => {
-      me.navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition((position) => {
         me.addPosition(position);
         me.setState({
           lat: position.coords.latitude,
@@ -97,9 +121,10 @@ class Map extends React.Component {
 
   initMap() {
     const me = this;
-    this.map = new window.google.maps.Map(me.mapRef, {
+    this.map = new google.maps.Map(me.mapRef, {
       center: me.position(),
-      zoom: 14,
+      zoom: 12,
+      // styles: mapStylers.map.dark,
     });
   }
 
@@ -121,17 +146,19 @@ class Map extends React.Component {
   }
 
   addMarker(position, label) {
-    const marker = new window.google.maps.Marker({
+    const marker = new google.maps.Marker({
       position,
       label,
-      animation: window.google.maps.Animation.DROP,
+      animation: google.maps.Animation.DROP,
     });
     marker.setMap(this.map);
     this.markers.push(marker);
   }
 
   requestSnapToRoads() {
-    this.props.snapToRoads(this.points);
+    const firstIndex = this.points.length > 100 ? this.points.length - 100 : 0;
+    const points = this.points.slice(firstIndex, this.points.length);
+    this.props.snapToRoads(points);
   }
 
   render() {

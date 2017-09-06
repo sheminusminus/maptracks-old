@@ -19,14 +19,19 @@ class FirebaseService {
     };
   }
 
-  static async saveSpotifyTokens(uid, access, refresh) {
+  static saveSpotifyTokens(uid, access, refresh) {
     const db = admin.database();
     const spotifyRef = db.ref(`/users/${uid}/spotify`);
     spotifyRef.set({
       accessToken: access,
       refreshToken: refresh,
     });
-    return {};
+  }
+
+  static saveRecentlyPlayed(uid, items) {
+    const db = admin.database();
+    const spotifyRef = db.ref(`/users/${uid}/spotify/recent`);
+    spotifyRef.set(items);
   }
 }
 

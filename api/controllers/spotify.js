@@ -9,7 +9,7 @@ class SpotifyController {
     const clientId = process.env.SP_CLIENT_ID;
     const clientSecret = process.env.SP_CLIENT_SECRET;
     const redirectUri = process.env.SP_REDIRECT_URI;
-    const scope = 'user-read-private user-read-email';
+    const scope = 'user-read-playback-state user-read-currently-playing user-read-recently-played';
     const auth = new Buffer(`${clientId}:${clientSecret}`).toString('base64');
     const basicAuth = {
       Authorization: `Basic ${auth}`,
@@ -60,11 +60,14 @@ class SpotifyController {
         refresh_token,
       } = response;
 
-      const dbResponse = await FirebaseService.saveSpotifyTokens(
+      const dbResponse = FirebaseService.saveSpotifyTokens(
         storedState,
         access_token,
         refresh_token,
       );
+
+      const items = await SpotifyService.getUserRecentlyPlayed(access_token);
+      FirebaseService.saveRecentlyPlayed(storedState, items);
 
       res.redirect('/spotify?success=true');
     } catch (err) {
