@@ -4,6 +4,7 @@ import Login from './Login';
 import Map from './Map';
 import Menu from './Menu';
 import Register from './Register';
+import SpotifyRecent from './SpotifyRecent';
 import UserOptions from './UserOptions';
 
 export {
@@ -13,5 +14,6 @@ export {
   Menu,
   Map,
   Register,
+  SpotifyRecent,
   UserOptions,
 };

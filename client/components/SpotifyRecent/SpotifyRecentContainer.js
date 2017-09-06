@@ -1,23 +1,22 @@
 import { connect } from 'react-redux';
 
-import {
-  getFirebaseConfig,
-  getSpotifyRecent,
-} from '../actions/creators';
+import SpotifyRecent from './SpotifyRecent';
 
-import Routes from './Routes';
+import {
+  getSpotifyRecent,
+} from '../../actions/creators';
 
 const mapStateToProps = state => ({
+  recent: state.spotify.recent,
   userId: state.user.uid,
-  fbInitialized: state.firebase.initialized,
+  dbInitialized: state.firebase.initialized,
 });
 
 const mapDispatchToProps = {
-  getFirebaseConfig,
   getSpotifyRecent,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Routes);
+)(SpotifyRecent);

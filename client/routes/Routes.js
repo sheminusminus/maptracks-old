@@ -23,6 +23,11 @@ class Routes extends React.Component {
     getFirebaseConfig();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.userId || !nextProps.fbInitialized) return;
+    if (!this.props.userId) this.props.getSpotifyRecent(nextProps.userId);
+  }
+
   render() {
     return (
       <Router>
@@ -32,6 +37,7 @@ class Routes extends React.Component {
             <NoAuthRoute path="/signup" Component={Auth} />
             <AuthRoute path="/track" Component={Track} />
             <AuthRoute path="/me" Component={UserMain} />
+            <AuthRoute path="/spotify/recent" Component={UserMain} />
             <AuthRoute path="/spotify" Component={UserMain} />
             <AuthRoute path="/" Component={UserMain} />
             <Route path="*" component={NotFound} />

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import styles from './Map.css';
-import mapStylers from './MapStylers';
 
 import InfoWindow from './InfoWindow';
 
@@ -36,11 +35,13 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (!this.mapRef) return;
     const points = Map.processSnappedPoints(nextProps.snappedPoints);
     this.drawPolylines(points);
   }
 
   componentWillUnmount() {
+    this.mapRef = null;
     clearInterval(this.positionInterval);
   }
 
@@ -102,16 +103,29 @@ class Map extends React.Component {
     this.mapRef = el;
   }
 
+  getMapRef() {
+    return this.mapRef;
+  }
+
+  getMap() {
+    return this.map;
+  }
+
   initNavigator() {
     const me = this;
+
     this.positionInterval = setInterval(() => {
       navigator.geolocation.getCurrentPosition((position) => {
+        if (!me.getMapRef()) return;
+
         me.addPosition(position);
+
         me.setState({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         }, () => {
-          if (me.map) return;
+          if (me.getMap()) return;
+
           me.initMap();
           me.addMarker(me.position(), '★');
         });

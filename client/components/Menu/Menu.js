@@ -36,6 +36,18 @@ class Menu extends React.Component {
           className={styles.menu}>
           <li
             className={styles.menuItem}>
+            <Link to="/track">
+              Map Tracks
+            </Link>
+          </li>
+          <li
+            className={styles.menuItem}>
+            <Link to="/spotify/recent">
+              Recently Played
+            </Link>
+          </li>
+          <li
+            className={styles.menuItem}>
             <a href={`/spotify/auth/${uid}`}>
               Connect Spotify
             </a>

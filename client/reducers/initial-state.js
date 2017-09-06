@@ -17,6 +17,7 @@ export default {
     authUrl: null,
     accessToken: null,
     refreshToken: null,
+    recent: [],
   },
   user: {
     fetching: false,

@@ -7,6 +7,9 @@ import {
   FIREBASE_CONFIG_FAILURE,
   FB_USER_DATA_SUCCESS,
   FB_USER_DATA_FAILURE,
+  DB_USER_DATA_REQUEST,
+  DB_USER_DATA_SUCCESS,
+  DB_USER_DATA_FAILURE,
 } from '../types';
 
 function authHandler(dispatch) {
@@ -75,5 +78,28 @@ export function getFirebaseConfig() {
         type: FIREBASE_CONFIG_FAILURE,
       });
     }
+  };
+}
+
+export function getSpotifyRecent(userId) {
+  return async (dispatch) => {
+    dispatch({
+      type: DB_USER_DATA_REQUEST,
+    });
+
+    const db = window.firebase.database();
+    db.ref(`users/${userId}/spotify/recent`).once('value').then((snapshot) => {
+      console.log(snapshot);
+
+      dispatch({
+        type: DB_USER_DATA_SUCCESS,
+        payload: snapshot.val(),
+      });
+    }).catch((err) => {
+      console.log(err);
+      dispatch({
+        type: DB_USER_DATA_FAILURE,
+      });
+    });
   };
 }

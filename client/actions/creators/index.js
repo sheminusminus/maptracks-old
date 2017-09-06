@@ -6,6 +6,7 @@ import {
 
 import {
   getFirebaseConfig,
+  getSpotifyRecent,
 } from './firebase';
 
 import {
@@ -23,6 +24,7 @@ export {
   logout,
   // firebase
   getFirebaseConfig,
+  getSpotifyRecent,
   // maps
   snapToRoads,
   // spotify
