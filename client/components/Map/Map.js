@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 import styles from './Map.css';
 
@@ -35,6 +36,10 @@ class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (!this.props.snappedSaved && nextProps.snappedSaved) {
+      this.positions = [];
+      this.points = [];
+    }
     if (!this.mapRef) return;
     const points = Map.processSnappedPoints(nextProps.snappedPoints);
     this.drawPolylines(points);
@@ -113,8 +118,9 @@ class Map extends React.Component {
 
   initNavigator() {
     const me = this;
-
+    if (this.positionInterval) return;
     this.positionInterval = setInterval(() => {
+      console.log('tick');
       navigator.geolocation.getCurrentPosition((position) => {
         if (!me.getMapRef()) return;
 
@@ -130,7 +136,7 @@ class Map extends React.Component {
           me.addMarker(me.position(), '★');
         });
       });
-    }, 2000);
+    }, 6000);
   }
 
   initMap() {
@@ -146,6 +152,7 @@ class Map extends React.Component {
     const latestPosition = {
       lat: position.coords.latitude,
       lng: position.coords.longitude,
+      timestamp: moment().valueOf(),
     };
 
     const latestPoint = `${latestPosition.lat},${latestPosition.lng}`;
@@ -172,7 +179,8 @@ class Map extends React.Component {
   requestSnapToRoads() {
     const firstIndex = this.points.length > 100 ? this.points.length - 100 : 0;
     const points = this.points.slice(firstIndex, this.points.length);
-    this.props.snapToRoads(points);
+    const positions = this.positions.slice(firstIndex, this.positions.length);
+    this.props.snapToRoads(points, positions);
   }
 
   render() {

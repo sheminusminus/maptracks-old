@@ -24,6 +24,14 @@ class Routes extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.correlatedLocations.length !== nextProps.correlatedLocations.length) {
+      if (nextProps.correlatedLocations.length) {
+        this.props.saveCorrelatedLocations(
+          nextProps.userId,
+          nextProps.correlatedLocations,
+        );
+      }
+    }
     if (!nextProps.userId || !nextProps.fbInitialized) return;
     if (!this.props.userId) this.props.getSpotifyRecent(nextProps.userId);
   }

@@ -7,6 +7,7 @@ import {
 import {
   getFirebaseConfig,
   getSpotifyRecent,
+  saveCorrelatedLocations,
 } from './firebase';
 
 import {
@@ -25,6 +26,7 @@ export {
   // firebase
   getFirebaseConfig,
   getSpotifyRecent,
+  saveCorrelatedLocations,
   // maps
   snapToRoads,
   // spotify

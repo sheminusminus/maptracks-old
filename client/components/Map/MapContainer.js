@@ -8,6 +8,7 @@ import {
 
 const mapStateToProps = state => ({
   snappedPoints: state.maps.snappedPoints,
+  snappedSaved: state.maps.saveState.snapped,
 });
 
 const mapDispatchToProps = {

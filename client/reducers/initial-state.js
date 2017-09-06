@@ -7,6 +7,12 @@ export default {
   maps: {
     fetching: false,
     snappedPoints: [],
+    correlatedLocations: [],
+    saveState: {
+      mass: false,
+      user: false,
+      snapped: false,
+    },
   },
   firebase: {
     fetching: false,

@@ -22,7 +22,7 @@ const playedItem = (track, playedAt) => {
   const albumId = album.id;
   const image = album.images.length ? album.images[0] : '';
   const albumUrl = album.href;
-  const timestamp = moment(playedAt).unix();
+  const timestamp = moment(playedAt).valueOf();
 
   return {
     id,
